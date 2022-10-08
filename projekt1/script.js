@@ -1,13 +1,22 @@
-addEventListener('load', (event) => {
+window.addEventListener('DOMContentLoaded', (event) => {
     const button = document.querySelector('#add_number_button');
     const numbersDiv = document.querySelector('.numbers');
     const resultsDiv = document.querySelector('.results');
-    let inputs = numbersDiv.querySelectorAll('input');
+    let inputs = numbersDiv.querySelectorAll('input');    
+    let delButtons = document.querySelectorAll('.delete_button');
+    calculate();
 
     inputs.forEach(function(elem) {
         elem.addEventListener("input", function() {
             calculate();
         });
+        elem.style.width = '75px';
+    });
+
+    delButtons.forEach(function(elem) {
+        elem.addEventListener('click', deleteInput);
+        elem.style.width = '45px';
+        elem.style.marginBottom = '10px';
     });
 
     button.addEventListener('click', () => {
@@ -16,10 +25,14 @@ addEventListener('load', (event) => {
         input.type = 'number';
         input.id = 'n' + highestId.toString();
         input.placeholder = 'number ' + highestId.toString();
+        input.style.width = '75px';
         const delButton = document.createElement('button');
         delButton.id = 'del' + highestId.toString();
+        delButton.className = 'delete_button';
         delButton.addEventListener('click', deleteInput);
         delButton.innerHTML = "delete";
+        delButton.style.width = '45px';
+        delButton.style.marginBottom = '10px';
         numbersDiv.appendChild(input);
         numbersDiv.appendChild(delButton);
         numbersDiv.appendChild(document.createElement('br'));
@@ -29,8 +42,11 @@ addEventListener('load', (event) => {
     
     });
 
-    function deleteInput(button){
-        console.log('del');
+    function deleteInput(){
+        let buttonId = this.id.slice(3);
+        numbersDiv.querySelector('#n' + buttonId).remove();
+        this.remove();
+        calculate();
     }
 
     function getHighestNumberId(){
@@ -62,14 +78,24 @@ addEventListener('load', (event) => {
             sum+= elem;
         });
 
-        let avg = sum / numbers.length;
+        let numLength = numbers.length;
         let min = Math.min(...numbers);
         let max = Math.max(...numbers);
 
-        document.querySelector('#sum').innerHTML = sum;
-        document.querySelector('#avg').innerHTML = avg;
-        document.querySelector('#min').innerHTML = min;
-        document.querySelector('#max').innerHTML = max;
+        
+        if(numLength < 1){
+            numLength = 1;
+            min = 0;
+            max = 0;
+        }
+        let avg = sum / numLength;
+
+
+        
+        resultsDiv.querySelector('#sum').innerHTML = sum;
+        resultsDiv.querySelector('#avg').innerHTML = avg;
+        resultsDiv.querySelector('#min').innerHTML = min;
+        resultsDiv.querySelector('#max').innerHTML = max;
     }
 
 

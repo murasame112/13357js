@@ -7,18 +7,18 @@
 </head>
 <body>
     <div class="content">
-        <div class="numbers">
-            <input type="number" id="n1" placeholder="number 1"><button onclick="deleteInput(this)" id="del1">delete</button><br>
-            <input type="number" id="n2" placeholder="number 2"><button onclick="deleteInput(this)" id="del2">delete</button><br>
-            <input type="number" id="n3" placeholder="number 3"><button onclick="deleteInput(this)" id="del3">delete</button><br>
+        <div class="results">
+            <p>Sum: <span id="sum">0</span></p>
+            <p>Avg:<span id="avg">0</span></p>
+            <p>Min:<span id="min">0</span></p>
+            <p>Max:<span id="max">0</span></p>
+        </div>
+        <div class="numbers" style="display:flex; flex-flow: column wrap; width:150px;">
+            <input type="number" id="n1" placeholder="number 1"><button class="delete_button" id="del1">delete</button><br>
+            <input type="number" id="n2" placeholder="number 2"><button class="delete_button" id="del2">delete</button><br>
+            <input type="number" id="n3" placeholder="number 3"><button class="delete_button" id="del3">delete</button><br>
         </div>
         <button id="add_number_button">Add number</button>
-        <div class="results">
-            <p>Sum: <span id="sum"></span></p>
-            <p>Avg:<span id="avg"></span></p>
-            <p>Min:<span id="min"></span></p>
-            <p>Max:<span id="max"></span></p>
-        </div>
     </div>
     <script type="text/javascript" src="script.js"></script>
 </body>
