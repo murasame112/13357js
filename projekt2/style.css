@@ -1,0 +1,87 @@
+.slide{
+    border: 2px solid black;
+    width:300px;
+    height:150px;
+    margin-left:50px;
+    display:none;
+    transition: all 1s linear;
+}
+
+#content{
+    height:80vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main_slide{
+    display:flex !important;
+    width:600px;
+    height:300px;
+    transition: all 1s linear;
+    
+}
+
+.sub_slide{
+    display:flex !important;
+    transition: all 1s linear;
+    width:300px;
+    height:150px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ----- PONIŻEJ NIEUŻYWANE, MOŻE POTEM SIĘ PRZYDADZĄ ----- */
+
+
+
+
+
+
+.slide_left{
+    display:flex !important;
+    animation-name: slide-left;
+    animation-fill-mode:forwards;
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+}
+
+.slide_left_to_main{
+    display:flex !important;
+    animation-name: slide-left-to-main;
+    animation-fill-mode:forwards;
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+}
+
+/* ----- KEYFRAMES ----- */
+
+@keyframes slide-left{
+    0%{
+        transform: translateX(0);
+        
+    }
+    100%{
+        transform: translateX(-300px);
+        transform: scale( 0.5);
+    }
+}
+
+@keyframes slide-left-to-main{
+    0%{
+        transform: translateX(0);
+        
+    }
+    100%{
+        transform: translateX(-300px);
+        transform: scale( 1.5);
+    }
+}
