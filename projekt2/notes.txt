@@ -8,14 +8,14 @@ setTimeout(
 malo animacji w js robic, raczej glownie w js
 
 
-1 - slajder poziomy, automatyczne prezwijanie
-2 - stala ilosc slajdow (5)
++1 - slajder poziomy, automatyczne prezwijanie
++2 - stala ilosc slajdow (5)
 3 - przyciski odpowiadajace kazdemu slajdowi
-4 - przyciski dalej/wstecz
++4 - przyciski dalej/wstecz
 5 - po wyswietleniu ostatniego wraca na poczatek
 
-6 - slajder mozna zapauzowac/wznowic
-7 - kazdy slajd jest htmlem
++6 - slajder mozna zapauzowac/wznowic
++7 - kazdy slajd jest htmlem
 
 8 - dwa sposoby animacji - przewijanie w lewo/prawo oraz przenikanie
 9 - lighbox, plus klikniecie w grafike zatrzymuje slider
