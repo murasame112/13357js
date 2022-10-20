@@ -1,0 +1,33 @@
+nagranie zapamietane do odswiezenia
+nagrywanie 4 sciezek/kanalow - osobne przyciski dla sciezki i 1 przycisk play dla wszystkich naraz
+znacznik video/audio src= controls
+zdarzenie na nacisniecie klaswisza, listener na document
+zdarzenie na keypress/keydown/keyup - press uwzglednia autopowtarzanie. uzyc jego
+
+onKeyPress(event) - mapowanie
+playSound(sound)
+event.charCode / key / code / keyCode - najlepiej event.key
+tam tez jest shiftKey, mowi czy byl przytrzymany shift
+
+const sound = 'clap'
+audioTag.currentTime = 0
+audioTag.play()
+
+mapowanie key -> sound (np switchem). np litera q = 'clap'
+querySelector(`#${clap}`)
+
+zapamietujemy dzwieki, nie klawisze
+do czasu miedzy dzwiekami dostajemy sie przez Date.now() (chodzi o roznice w date now miedzy kolejnymi dzwiekami)
+
+zaznaczyc kiedy zaczal nagrywac
+
+uzyc timeouta
+
+dzwieki i czas w tablicy 
+
+const KeyToSound = {
+    'a': 'sound1',
+    's': 'sound2'
+}
+
+const sound = KeyToSound[event.key]
