@@ -3,6 +3,7 @@ const recButtons = document.querySelectorAll('.recording_button');
 const stopButton = document.querySelector('#stop_recording');
 const playButtons = document.querySelectorAll('.play_button');
 const playAllButton = document.querySelector('#play_all');
+const playSelected = document.querySelector('#play_selected');
 
 
 
@@ -23,6 +24,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
     playAllButton.addEventListener('click', playAll);
     
+    playSelected.addEventListener('click', playSelected);
 });
 
 const sounds = {
@@ -66,6 +68,11 @@ function playAll(){
             }
         }
     });
+}
+
+function playSelected(){
+    // pobiera ktore kanaly grac
+    // dla kazdego wybranego odtwarza
 }
 
 function startRecording(){
