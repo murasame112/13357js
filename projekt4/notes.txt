@@ -1,0 +1,33 @@
+Date.now() - zwraca date w formie liczby
+
+const x = new Date();
+x.toISOString(); -- zwraca date, godzine, strefe czasowa, czas letni/zimowy etc. 
+x.toLocaleString(); -- formatuje i zwraca date w formacie uzytkownika przegladarki
+
+const y = new Date(123123123321321); -- przyjmuje kazdy format daty, tu timestampa podalem
+const z = new Date('3.11.2022'); -- tu po prostu date
+
+raczej używac timestamp (to pierwsze)
+
+localStorage.setItem('listaNotatek', JSON.stringify([1,2,3,4,5,6])); -- zapisuje do localstorage - podaje key i value
+getItem() - zwraca wartosc po kluczu
+
+=========================
+
+tytuł, treść, kolor, pin, data
+
+1 - tworzenie notatek
+    obiekt
+2 - zapisywanie notatek
+    leci do local storage oraz do istniejacej juz tablicy
+3 - wyświetlanie notatek
+    przy refreshu pobierane do tablicy
+4 - edycja notatek
+5 - usuwanie notatek
+=====
+6 - tagowanie notatek
+7 - wyszukiwanie notatek po wszystkich dostępnych polach oraz tagach
+=====
+8 - zapisywanie daty przypomnień
+9 - wyświtelanie przypomnień
+10 - klikalna lista punktowana w notatce

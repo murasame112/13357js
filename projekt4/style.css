@@ -1,0 +1,98 @@
+
+.content{
+    border:1px solid black;
+    display:flex;
+    margin:auto;
+    width:1024px;
+    height:70vh;
+}
+
+.multiple_notes_box{
+    width:50%;
+    height:100%;
+    border-right:1px solid black;
+}
+
+.single_note_box{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width:50%;
+    height:100%;
+}
+
+#new_note_div{
+    border: 1px solid black;
+    height:325px;
+    width:400px;
+}
+
+#sub_title_div{
+    display:flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+}
+
+#new_note_title{
+    width:370px;
+    margin: 0;
+    padding: 0;
+    border:0;
+    border-right:1px solid black;
+    font-size:24px;
+    height:55px;
+}
+
+#pin_div{
+    margin-left:4px;
+    width:25px;
+    height:55px;
+    display:flex;
+    flex-direction: column;
+}
+
+#new_note_content{
+    width:400px;
+    margin: 0;
+    padding: 0;
+    border:0;
+    border-top:1px solid black;
+    border-bottom:1px solid black;
+    font-size:16px;
+    height:240px;
+    resize:none;
+    padding-top:5px;
+}
+
+#additionals_div{
+    width:95%;
+    height:20px;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    margin-left:3px;
+    
+}
+
+#new_note_color{
+    width:120px;
+    margin: 0;
+    padding: 0;
+    font-size:16px;
+    height:15px;
+}
+
+#new_note_save{
+    
+    width:40px;
+    margin: 0;
+    padding: 0;
+    font-size:14px;
+    height:20px;
+}
+
+hr{
+    margin: 0;
+    padding: 0;
+}
+
