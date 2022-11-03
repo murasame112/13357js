@@ -59,8 +59,6 @@ function createNewNote(){
     saveButton.addEventListener('click', saveNewNote);
     saveButton.innerHTML = "Save";
 
-    const hr = document.createElement('hr');
-
     // appending new note (front)
 
     colorDiv.appendChild(colorLabel);
