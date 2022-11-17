@@ -20,7 +20,7 @@ function setBall(){
     while(top == hole_top){
         top = Math.random() * ((field_height - ball_height) - 0) + 0;
     }     
-    
+
     ball.style.left = left+'px';
     ball.style.top = top+'px';
 
@@ -28,13 +28,15 @@ function setBall(){
 setBall();
 
 function onDeviceMove(event) {
-    requestAnimationFrame(animate)
-}
-let i = 5;
-function animate() {
-
+    if(event.alpha >0){
+        requestAnimationFrame(animate);
+    }
     
-    i++;
+}
+
+function animate() {
+    const ball_left = ball.offsetLeft;
+    ball.style.left = ball_left+5+'px';
     requestAnimationFrame(animate)
 }
 
