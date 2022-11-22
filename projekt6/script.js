@@ -92,7 +92,10 @@ function animate(alpha, beta) {
         points++;
         scoreSpan.innerHTML=points;
         setBall();
+    }else if(ball.offsetLeft >= field.offsetWidth || ball.offsetTop >= field.offsetHeight || ball.offsetLeft <= -20 || ball.offsetTop <= -20){
+        setBall();        
     }
+    
     window.requestAnimationFrame(() => {animate(alpha, beta)});
  
 }
