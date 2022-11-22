@@ -1,8 +1,32 @@
 // wieksze pochylenie = wieksza predkosc
-let field = document.querySelector('#field');
-let ball = document.querySelector('#ball');
-let hole = document.querySelector("#hole");
+const field = document.querySelector('#field');
+const ball = document.querySelector('#ball');
+const hole = document.querySelector('#hole');
+const timeSpan = document.querySelector('#time');
+const scoreSpan = document.querySelector('#score');
+let time = 60;
+let points = 0;
+timeSpan.innerHTML=time;
+scoreSpan.innerHTML=points;
+let previous_alpha = 0;
+let previous_beta = 90;
+
+
+
+
 window.addEventListener('deviceorientation', onDeviceMove);
+let timeInterval = setInterval(countTime, 1000);
+
+function countTime(){
+    if(time > 0){
+        time--;
+        timeSpan.innerHTML=time;
+    }else{
+        timeSpan.innerHTML=time;
+        alert("Game finished, your points: "+points);
+        clearInterval(timeInterval);
+    }
+}
 
 function setBall(){
     const field_width = field.offsetWidth;
@@ -25,18 +49,53 @@ function setBall(){
     ball.style.top = top+'px';
 
 }
+
 setBall();
 
 function onDeviceMove(event) {
-    if(event.alpha >0){
-        requestAnimationFrame(animate);
-    }
-    
+    animate(event.alpha, event.beta);
 }
 
-function animate() {
+function animate(alpha, beta) {
     const ball_left = ball.offsetLeft;
-    ball.style.left = ball_left+5+'px';
-    requestAnimationFrame(animate)
+    const ball_top = ball.offsetTop;
+    
+    if(alpha == previous_alpha){
+        if(alpha > 0){
+            ball.style.left = ball_left+1+'px';
+        }else if(alpha < 0){
+            ball.style.left = ball_left-1+'px';
+        }
+
+    }else if(alpha > previous_alpha){
+        ball.style.left = ball_left+1+'px';
+    }else if(alpha < previous_alpha){
+        ball.style.left = ball_left-1+'px';   
+    }
+    previous_alpha = alpha;
+
+    if(beta == previous_beta){
+        if(beta > 90){
+            ball.style.top = ball_top+1+'px';
+        }else if(beta < 90){
+            ball.style.top = ball_top-1+'px';
+        }
+
+    }else if(beta > previous_beta){
+        ball.style.top = ball_top+1+'px';
+    }else if(beta < previous_beta){
+        ball.style.top = ball_top-1+'px';   
+    }
+    previous_beta = beta;
+
+    if(ball.offsetLeft == hole.offsetLeft && ball.offsetTop == hole.offsetTop){
+        points++;
+        scoreSpan.innerHTML=points;
+        setBall();
+    }
+    window.requestAnimationFrame(() => {animate(alpha, beta)});
+ 
 }
+
+
 
