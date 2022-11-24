@@ -27,3 +27,9 @@
     border-radius: 50%;
 }
 
+#scoreBox{
+    color:red;
+    position:absolute;
+    z-index: 1;
+    font-size:24px;
+}
