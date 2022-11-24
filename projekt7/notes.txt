@@ -1,0 +1,2 @@
+1 tablica 10-elementowa, dodac wszystko podana funkcja
+2 policzyc czas dodawania. mozna uzyc date.now, ale jakby byl za malo dokladny to warto uzyc performance.now() lub performance.mark + performance.measure
