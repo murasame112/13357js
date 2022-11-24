@@ -17,11 +17,14 @@ getItem() - zwraca wartosc po kluczu
 tytuł, treść, kolor, pin, data
 
 1 - tworzenie notatek
-    obiekt
+    +obiekt
+    tworzenie nowych notatek czysci ta juz istniajaca
 2 - zapisywanie notatek
-    leci do local storage oraz do istniejacej juz tablicy
+    +leci do local storage 
+    oraz do istniejacej juz tablicy
 3 - wyświetlanie notatek
     przy refreshu pobierane do tablicy
+    dodac, ze automatycznie najwyzsze id sie nadpisuje na id ostatniej notatki
 4 - edycja notatek
 5 - usuwanie notatek
 =====

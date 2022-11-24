@@ -1,6 +1,7 @@
 "use strict";
 const createButton = document.querySelector('#new_note');
 const singleNoteBox = document.querySelector('.single_note_box');
+let highestId = 0;
 
 window.addEventListener('DOMContentLoaded', (event) => {
 
@@ -9,7 +10,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
 });
 
 class Note{
-    constructor(title, content, color, pin, data){
+    constructor(id, title, content, color, pin, data){
+        this.id = id;
         this.title = title;
         this.content = content;
         this.color = color;
@@ -59,6 +61,18 @@ function createNewNote(){
     saveButton.addEventListener('click', saveNewNote);
     saveButton.innerHTML = "Save";
 
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    const formattedToday = dd + '/' + mm + '/' + yyyy;
+
+    newNoteDiv.dataset.date = formattedToday;
+
     // appending new note (front)
 
     colorDiv.appendChild(colorLabel);
@@ -74,15 +88,28 @@ function createNewNote(){
     newNoteDiv.appendChild(additionalsDiv);
     singleNoteBox.appendChild(newNoteDiv);
     
-    
 
-    
-
-    
-    //const note = new Note();
 }
 
 
 function saveNewNote(){
-    console.log("save new note");
+    const noteDiv = document.querySelector('#'+this.parentElement.parentElement.id);
+    highestId++;
+    
+    const title = noteDiv.querySelector('#new_note_title').value;
+    const content = noteDiv.querySelector('#new_note_content').value;
+    const color = noteDiv.querySelector('#new_note_color').value;
+    let pin = false;
+    if(noteDiv.querySelector('#new_note_pin').checked == true){
+        pin = true;
+    }
+    const data = noteDiv.dataset.date;
+
+    const note = new Note(highestId, title, content, color, pin, data);
+    console.log(note);  
+    localStorage.setItem(note.id, note);
+    
 }
+
+
+//let note = localStorage.getItem(note.id);
