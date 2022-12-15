@@ -1,13 +1,16 @@
 "use strict";
 const createButton = document.querySelector('#new_note');
 const singleNoteBox = document.querySelector('.single_note_box');
+const noteList = document.querySelector('.notes');
 let highestId = 0;
-
+getNotes();
 window.addEventListener('DOMContentLoaded', (event) => {
 
     createButton.addEventListener('click', createNewNote);
 
 });
+
+
 
 class Note{
     constructor(id, title, content, color, pin, data){
@@ -22,6 +25,11 @@ class Note{
 
 function createNewNote(){
     // creating new note (front)
+    const oldNote = document.querySelector('#new_note_div');
+    if(oldNote != null){
+        oldNote.remove();
+    }
+    
     const newNoteDiv = document.createElement('div');
     newNoteDiv.id = 'new_note_div';
 
@@ -88,7 +96,7 @@ function createNewNote(){
     newNoteDiv.appendChild(additionalsDiv);
     singleNoteBox.appendChild(newNoteDiv);
     
-
+    
 }
 
 
@@ -106,10 +114,68 @@ function saveNewNote(){
     const data = noteDiv.dataset.date;
 
     const note = new Note(highestId, title, content, color, pin, data);
-    console.log(note);  
-    localStorage.setItem(note.id, note);
+    const JSONnote = JSON.stringify(note);
+    localStorage.setItem(note.id, JSONnote);
+    getNotes();
+    noteDiv.remove();
     
 }
 
 
-//let note = localStorage.getItem(note.id);
+function getNotes(){
+    let JSONnote; 
+    let notes = [];
+    for(let i = 1; i < localStorage.length+1; i++){
+        JSONnote = localStorage.getItem(i);
+        let note = JSON.parse(JSONnote);
+        notes.push(note);
+    }
+    highestId = localStorage.length;
+    
+    noteList.innerHTML = '';
+    notes.forEach(function (element){
+        listNote(element);
+    })
+
+    const listedNotes = document.querySelectorAll('.listedNote');
+    listedNotes.forEach(function(element){
+        element.addEventListener('click', editNote);
+    });
+}
+
+function listNote(note){
+    const newListedNote = document.createElement('div');
+    newListedNote.id = 'note'+note.id;
+    newListedNote.classList.add('listedNote');
+    newListedNote.dataset.title = note.title;
+    newListedNote.dataset.content = note.content;
+    newListedNote.dataset.color = note.color;
+    newListedNote.dataset.pin = note.pin;
+    newListedNote.dataset.data = note.data;
+
+    const title = document.createElement('h2');
+    title.innerHTML = note.title;
+    newListedNote.appendChild(title);
+
+    noteList.appendChild(newListedNote);
+}
+
+function editNote(){
+    console.log(this);
+    let highestIdBufor = highestId;
+    highestId = this.id.slice(4);
+    highestId = parseInt(highestId);
+    createNewNote();
+    const editedNote = document.querySelector('#new_note_div');
+    editedNote.querySelector('#new_note_title').value = this.dataset.title;
+    editedNote.querySelector('#new_note_content').value = this.dataset.content;
+    editedNote.querySelector('#new_note_color').value = this.dataset.color;
+    if(this.dataset.pin == true || this.dataset.pin == 'true'){
+        editedNote.querySelector('#new_note_pin').checked = true;
+    }
+
+    // podmiana guzika z save na edit (tez moze sie nazywac save, ale musi miec inna funkcje)
+    // bierze on to inne highestId (żeby przypisac notatce to samo id, ktore miala)
+    highestId = highestIdBufor;
+}
+

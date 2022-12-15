@@ -18,15 +18,21 @@ tytuł, treść, kolor, pin, data
 
 1 - tworzenie notatek
     +obiekt
-    tworzenie nowych notatek czysci ta juz istniajaca
+    +tworzenie nowych notatek czysci ta juz istniajaca
 2 - zapisywanie notatek
     +leci do local storage 
-    oraz do istniejacej juz tablicy
+    ?oraz do istniejacej juz tablicy
+    +pole tworzenia notatki znika po kliknięciu "save"
 3 - wyświetlanie notatek
-    przy refreshu pobierane do tablicy
-    dodac, ze automatycznie najwyzsze id sie nadpisuje na id ostatniej notatki
+    te z pinem są u góry
+    ?przy refreshu pobierane do tablicy
+    dodac, ze automatycznie najwyzsze id sie nadpisuje na id ostatniej notatki (chodzi o zmienna highestId)
 4 - edycja notatek
+    +wyswietlanie ich jak w create new note
+    nadpisywanie w storage tej z tym samym id
+    podmiana guzika "save"
 5 - usuwanie notatek
+    guzik dodatkowy przy edycji
 =====
 6 - tagowanie notatek
 7 - wyszukiwanie notatek po wszystkich dostępnych polach oraz tagach
