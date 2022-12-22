@@ -161,21 +161,54 @@ function listNote(note){
 }
 
 function editNote(){
-    console.log(this);
-    let highestIdBufor = highestId;
-    highestId = this.id.slice(4);
-    highestId = parseInt(highestId);
+
+    let noteId = this.id.slice(4);
+    noteId = parseInt(noteId);
+    
     createNewNote();
     const editedNote = document.querySelector('#new_note_div');
     editedNote.querySelector('#new_note_title').value = this.dataset.title;
     editedNote.querySelector('#new_note_content').value = this.dataset.content;
     editedNote.querySelector('#new_note_color').value = this.dataset.color;
+    editedNote.querySelector('#new_note_title').dataset.id = noteId;
     if(this.dataset.pin == true || this.dataset.pin == 'true'){
         editedNote.querySelector('#new_note_pin').checked = true;
     }
+    const saveButton = document.querySelector('#new_note_save');
+    const additionals_div = document.querySelector('#additionals_div');
+
+    saveButton.remove();
+
+    const editButton = document.createElement('button');
+    editButton.id = 'new_note_edit';
+    editButton.addEventListener('click', saveEditedNote);
+    editButton.innerHTML = "Save";
+
+    additionals_div.appendChild(editButton);
+
 
     // podmiana guzika z save na edit (tez moze sie nazywac save, ale musi miec inna funkcje)
     // bierze on to inne highestId (żeby przypisac notatce to samo id, ktore miala)
-    highestId = highestIdBufor;
+    
 }
 
+function saveEditedNote(){
+
+    const noteDiv = document.querySelector('#new_note_div');
+    
+    const id = noteDiv.querySelector('#new_note_title').dataset.id;
+    const title = noteDiv.querySelector('#new_note_title').value;
+    const content = noteDiv.querySelector('#new_note_content').value;
+    const color = noteDiv.querySelector('#new_note_color').value;
+    let pin = false;
+    if(noteDiv.querySelector('#new_note_pin').checked == true){
+        pin = true;
+    }
+    const data = noteDiv.dataset.date;
+
+    const note = new Note(id, title, content, color, pin, data);
+    const JSONnote = JSON.stringify(note);
+    localStorage.setItem(note.id, JSONnote);
+    getNotes();
+    noteDiv.remove();
+}
