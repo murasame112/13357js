@@ -11,10 +11,10 @@ const createButton = document.querySelector('#new_city');
 const singleCityBox = document.querySelector('.single_city_box');
 const cityList = document.querySelector('.cities');
 let highestId = 0;
-getCities();
+//getCities();
 window.addEventListener('DOMContentLoaded', (event) => {
 
-    createButton.addEventListener('click', createNewCity);
+    createButton.addEventListener('click', addCity);
 
 });
 
@@ -40,7 +40,50 @@ function addCity(){
     clearNewCity();
     const newCityDiv = document.createElement('div');
     newCityDiv.id = 'new_city_div';
-    // tu jakis input
+    newCityDiv.className = 'new_city_div';
+    const subNameDiv = document.createElement('div');
+    subNameDiv.id = 'sub_name_div';
+    const name = document.createElement('input');
+    name.type = 'text';
+    name.id = 'new_city_name';
+    name.placeholder = 'Name of the city';
+    const additionalsDiv = document.createElement('div');
+    additionalsDiv.id = 'new_additionals_div';
+
+    const saveButton = document.createElement('button');
+    saveButton.id = 'new_city_save';
+    saveButton.addEventListener('click', saveNewCity);
+    saveButton.innerHTML = "Save";
+
+    subNameDiv.appendChild(name);
+    newCityDiv.appendChild(subNameDiv);
+    singleCityBox.appendChild(newCityDiv);
+    additionalsDiv.appendChild(saveButton);
+    newCityDiv.appendChild(additionalsDiv);
+
+}
+
+function saveNewCity(){
+    const cityDiv = document.querySelector('#new_city_div');
+    highestId++;
+    
+    // =====
+    const title = noteDiv.querySelector('#new_note_title').value;
+    const content = noteDiv.querySelector('#new_note_content').value;
+    const color = noteDiv.querySelector('#new_note_color').value;
+    let pin = false;
+    if(noteDiv.querySelector('#new_note_pin').checked == true){
+        pin = true;
+    }
+    const data = noteDiv.dataset.date;
+
+    const note = new Note(highestId, title, content, color, pin, data);
+    // =====
+    const JSONcity = JSON.stringify(city);
+    localStorage.setItem(city.id, JSONcity);
+    getCities();
+    cityDiv.remove();
+    
 }
 
 
@@ -175,28 +218,7 @@ function saveEditedCity(){
 }
 
 
-function saveNewCity(){
-    const cityDiv = document.querySelector('#new_city_div');
-    highestId++;
-    
-    // =====
-    const title = noteDiv.querySelector('#new_note_title').value;
-    const content = noteDiv.querySelector('#new_note_content').value;
-    const color = noteDiv.querySelector('#new_note_color').value;
-    let pin = false;
-    if(noteDiv.querySelector('#new_note_pin').checked == true){
-        pin = true;
-    }
-    const data = noteDiv.dataset.date;
 
-    const note = new Note(highestId, title, content, color, pin, data);
-    // =====
-    const JSONcity = JSON.stringify(city);
-    localStorage.setItem(city.id, JSONcity);
-    getCities();
-    cityDiv.remove();
-    
-}
 
 
 function getCities(){
