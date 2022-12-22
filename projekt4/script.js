@@ -104,7 +104,7 @@ function createNewNote(){
 
 
 function saveNewNote(){
-    const noteDiv = document.querySelector('#'+this.parentElement.parentElement.id);
+    const noteDiv = document.querySelector('#new_note_div');
     highestId++;
     
     const title = noteDiv.querySelector('#new_note_title').value;
@@ -126,7 +126,6 @@ function saveNewNote(){
 
 
 function getNotes(){
-    let JSONnote; 
     let notes = [];
     let unpinnedNotes = [];
     
@@ -176,6 +175,7 @@ function listNote(note){
 
     const title = document.createElement('h2');
     title.innerHTML = note.title;
+    title.style.color = note.color;
     newListedNote.appendChild(title);
 
     noteList.appendChild(newListedNote);
