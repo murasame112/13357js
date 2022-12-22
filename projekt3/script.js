@@ -24,7 +24,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
     playAllButton.addEventListener('click', playAll);
     
-    playSelected.addEventListener('click', playSelected);
+    playSelected.addEventListener('click', playSelectedChannels);
 });
 
 const sounds = {
@@ -70,7 +70,7 @@ function playAll(){
     });
 }
 
-function playSelected(){
+function playSelectedChannels(){
     // pobiera ktore kanaly grac
     // dla kazdego wybranego odtwarza
 }
