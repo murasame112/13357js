@@ -28,8 +28,8 @@ tytuł, treść, kolor, pin, data
     +wyswietlanie ich jak w create new note
     +nadpisywanie w storage tej z tym samym id
     +podmiana guzika "save"
-5 - usuwanie notatek
-    guzik dodatkowy przy edycji
++5 - usuwanie notatek
+    +guzik dodatkowy przy edycji
 =====
 6 - tagowanie notatek
 7 - wyszukiwanie notatek po wszystkich dostępnych polach oraz tagach

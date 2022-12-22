@@ -23,13 +23,16 @@ class Note{
     }
 }
 
-function createNewNote(){
-    // creating new note (front)
+function clearNewNote(){
     const oldNote = document.querySelector('#new_note_div');
     if(oldNote != null){
         oldNote.remove();
     }
+}
+
+function createNewNote(){
     
+    clearNewNote();
     const newNoteDiv = document.createElement('div');
     newNoteDiv.id = 'new_note_div';
 
@@ -126,13 +129,20 @@ function getNotes(){
     let JSONnote; 
     let notes = [];
     let unpinnedNotes = [];
-    for(let i = 1; i < localStorage.length+1; i++){
-        JSONnote = localStorage.getItem(i);
-        let note = JSON.parse(JSONnote);
-        notes.push(note);
-    }
-    highestId = localStorage.length;
     
+    var values = [],
+        keys = Object.keys(localStorage),
+        i = keys.length;
+
+    while ( i-- ) {
+        values.push( localStorage.getItem(keys[i]) );
+    }
+    
+    for(let i = 0; i < localStorage.length; i++){
+        values[i] = JSON.parse(values[i]);
+        notes.push(values[i]);
+    }
+    highestId = notes.at(-1).id;
     noteList.innerHTML = '';
     notes.forEach(function (element){
         if(element.pin){
@@ -190,16 +200,18 @@ function editNote(){
 
     saveButton.remove();
 
+    const deleteButton = document.createElement('button');
+    deleteButton.id = 'new_note_delete';
+    deleteButton.addEventListener('click', deleteNote);
+    deleteButton.innerHTML = 'Delete';
+
     const editButton = document.createElement('button');
     editButton.id = 'new_note_edit';
     editButton.addEventListener('click', saveEditedNote);
-    editButton.innerHTML = "Save";
+    editButton.innerHTML = 'Save';
 
+    additionals_div.appendChild(deleteButton);
     additionals_div.appendChild(editButton);
-
-
-    // podmiana guzika z save na edit (tez moze sie nazywac save, ale musi miec inna funkcje)
-    // bierze on to inne highestId (żeby przypisac notatce to samo id, ktore miala)
     
 }
 
@@ -222,4 +234,13 @@ function saveEditedNote(){
     localStorage.setItem(note.id, JSONnote);
     getNotes();
     noteDiv.remove();
+}
+
+function deleteNote(){
+    const noteDiv = document.querySelector('#new_note_div');
+    
+    const id = noteDiv.querySelector('#new_note_title').dataset.id;
+    localStorage.removeItem(id);
+    clearNewNote();
+    getNotes();
 }
