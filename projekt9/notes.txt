@@ -1,0 +1,23 @@
+1 - przerobić notatki w miasta
+    +index
+    +css
+    +script
+    usuneicie niepotrzebnego
+2 - miasta
+    użytkownik podaje nazwę miasta (musza byc polskie znaki)
+    z api branie koordynatów dla miasta
+    zapisywanie miast do local localStorage
+    dodawanie/usuwanie do 10 miast
+3 - pogoda
+    temperatura, wilgotność, grafika
+    pobieranie pogody co odświeżenie
+
+=====
+4 - dalej pogoda
+    Automatyczna aktualizacja pogody co 5min.
+    Wyniki zapisywane w cache (localStorage).
+    Przy odświeżeniu strony wyniki wczytywane z cache, następnie aktualizowane z api.
+=====
+5 - dalsze rozwijanie
+    Wykres pogody godzinowej (np. najblizsze 12 godzin) dla wybranej przez użytkownika lokalizacji.
+    Podawanie miast z autouzupełnianiem z api.
