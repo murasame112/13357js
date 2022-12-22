@@ -125,6 +125,7 @@ function saveNewNote(){
 function getNotes(){
     let JSONnote; 
     let notes = [];
+    let unpinnedNotes = [];
     for(let i = 1; i < localStorage.length+1; i++){
         JSONnote = localStorage.getItem(i);
         let note = JSON.parse(JSONnote);
@@ -134,10 +135,20 @@ function getNotes(){
     
     noteList.innerHTML = '';
     notes.forEach(function (element){
-        listNote(element);
-    })
+        if(element.pin){
+            listNote(element);
+        }else{
+            unpinnedNotes.push(element);
+        }
+    });
+    if( unpinnedNotes.length > 0){
+        unpinnedNotes.forEach(function(element){
+            listNote(element);
+        });
+    }
 
     const listedNotes = document.querySelectorAll('.listedNote');
+    
     listedNotes.forEach(function(element){
         element.addEventListener('click', editNote);
     });

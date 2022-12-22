@@ -22,8 +22,8 @@ tytuł, treść, kolor, pin, data
 +2 - zapisywanie notatek
     +leci do local storage
     +pole tworzenia notatki znika po kliknięciu "save"
-3 - wyświetlanie notatek
-    te z pinem są u góry
++3 - wyświetlanie notatek
+    +te z pinem są u góry
 +4 - edycja notatek
     +wyswietlanie ich jak w create new note
     +nadpisywanie w storage tej z tym samym id
