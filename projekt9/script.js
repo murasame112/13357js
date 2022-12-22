@@ -20,14 +20,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 
 
-class Note{
-    constructor(id, title, content, color, pin, data){
+class City{
+    constructor(id, name, coordX, coordY){
         this.id = id;
-        this.title = title;
-        this.content = content;
-        this.color = color;
-        this.pin = pin;
-        this.data = data;
+        this.name = name;
+        this.coordX = coordX;
+        this.coordY = coordY;
     }
 }
 
@@ -38,8 +36,17 @@ function clearNewCity(){
     }
 }
 
-function createNewCity(){
-    
+function addCity(){
+    clearNewCity();
+    const newCityDiv = document.createElement('div');
+    newCityDiv.id = 'new_city_div';
+    // tu jakis input
+}
+
+
+function showCity(){
+    let cityId = this.id.slice(4);
+    cityId = parseInt(cityId);
     clearNewCity();
     const newCityDiv = document.createElement('div');
     newCityDiv.id = 'new_city_div';
@@ -112,7 +119,59 @@ function createNewCity(){
     newNoteDiv.appendChild(additionalsDiv);
     singleNoteBox.appendChild(newNoteDiv);
     // =====
+
+    // tu edit stary
+    const editedCity = document.querySelector('#new_city_div');
+    // =====
+    editedNote.querySelector('#new_note_title').value = this.dataset.title;
+    editedNote.querySelector('#new_note_content').value = this.dataset.content;
+    editedNote.querySelector('#new_note_color').value = this.dataset.color;
+    editedNote.querySelector('#new_note_title').dataset.id = noteId;
+    if(this.dataset.pin == true || this.dataset.pin == 'true'){
+        editedNote.querySelector('#new_note_pin').checked = true;
+    }
+    // =====
+    //const saveButton = document.querySelector('#new_city_save');
+    const additionals_div = document.querySelector('#additionals_div');
+
+    saveButton.remove();
+
+    const deleteButton = document.createElement('button');
+    deleteButton.id = 'new_city_delete';
+    deleteButton.addEventListener('click', deleteCity);
+    deleteButton.innerHTML = 'Delete';
+
+    const editButton = document.createElement('button');
+    editButton.id = 'new_city_edit';
+    editButton.addEventListener('click', saveEditedCity);
+    editButton.innerHTML = 'Save';
+
+    additionals_div.appendChild(deleteButton);
+    additionals_div.appendChild(editButton);
     
+}
+
+function saveEditedCity(){
+
+    const cityDiv = document.querySelector('#new_city_div');
+    
+    // =====
+    const id = noteDiv.querySelector('#new_note_title').dataset.id;
+    const title = noteDiv.querySelector('#new_note_title').value;
+    const content = noteDiv.querySelector('#new_note_content').value;
+    const color = noteDiv.querySelector('#new_note_color').value;
+    let pin = false;
+    if(noteDiv.querySelector('#new_note_pin').checked == true){
+        pin = true;
+    }
+    const data = noteDiv.dataset.date;
+
+    const note = new Note(id, title, content, color, pin, data);
+    // ====
+    const JSONcity = JSON.stringify(city);
+    localStorage.setItem(city.id, JSONcity);
+    getCities();
+    cityDiv.remove();
 }
 
 
@@ -196,64 +255,9 @@ function listCity(city){
     cityList.appendChild(newListedCity);
 }
 
-function editCity(){
 
-    let cityId = this.id.slice(4);
-    cityId = parseInt(cityId);
-    
-    createNewCity();
-    const editedCity = document.querySelector('#new_city_div');
-    // =====
-    editedNote.querySelector('#new_note_title').value = this.dataset.title;
-    editedNote.querySelector('#new_note_content').value = this.dataset.content;
-    editedNote.querySelector('#new_note_color').value = this.dataset.color;
-    editedNote.querySelector('#new_note_title').dataset.id = noteId;
-    if(this.dataset.pin == true || this.dataset.pin == 'true'){
-        editedNote.querySelector('#new_note_pin').checked = true;
-    }
-    // =====
-    const saveButton = document.querySelector('#new_city_save');
-    const additionals_div = document.querySelector('#additionals_div');
 
-    saveButton.remove();
 
-    const deleteButton = document.createElement('button');
-    deleteButton.id = 'new_city_delete';
-    deleteButton.addEventListener('click', deleteCity);
-    deleteButton.innerHTML = 'Delete';
-
-    const editButton = document.createElement('button');
-    editButton.id = 'new_city_edit';
-    editButton.addEventListener('click', saveEditedCity);
-    editButton.innerHTML = 'Save';
-
-    additionals_div.appendChild(deleteButton);
-    additionals_div.appendChild(editButton);
-    
-}
-
-function saveEditedCity(){
-
-    const cityDiv = document.querySelector('#new_city_div');
-    
-    // =====
-    const id = noteDiv.querySelector('#new_note_title').dataset.id;
-    const title = noteDiv.querySelector('#new_note_title').value;
-    const content = noteDiv.querySelector('#new_note_content').value;
-    const color = noteDiv.querySelector('#new_note_color').value;
-    let pin = false;
-    if(noteDiv.querySelector('#new_note_pin').checked == true){
-        pin = true;
-    }
-    const data = noteDiv.dataset.date;
-
-    const note = new Note(id, title, content, color, pin, data);
-    // ====
-    const JSONcity = JSON.stringify(city);
-    localStorage.setItem(city.id, JSONcity);
-    getCities();
-    cityDiv.remove();
-}
 
 function deleteCity(){
     const cityDiv = document.querySelector('#new_city_div');

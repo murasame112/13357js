@@ -4,6 +4,7 @@
     +script
     usuneicie niepotrzebnego
 2 - miasta
+    +obiekt posiada id, nazwe, koordy X, koordy Y
     użytkownik podaje nazwę miasta (musza byc polskie znaki)
     z api branie koordynatów dla miasta
     zapisywanie miast do local localStorage
