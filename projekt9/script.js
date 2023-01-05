@@ -1,12 +1,24 @@
-async function funcName(url){
+
+"use strict";
+async function weatherApi(url){
     const response = await fetch(url);
     let data = await response.json();
     console.log(data);
     }
 
-funcName('https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=b32d84d770907c0b3e954927aed7ea88');
+//weatherApi('https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=b32d84d770907c0b3e954927aed7ea88');
 
-"use strict";
+async function cityApi(url){
+    const response = await fetch(url);
+    let data = await response.json();
+    //console.log(data);
+    return data;
+    }
+
+//cityApi('http://geodb-free-service.wirefreethought.com/v1/geo/cities?limit=5&offset=0&namePrefix=London');
+
+
+
 const createButton = document.querySelector('#new_city');
 const singleCityBox = document.querySelector('.single_city_box');
 const cityList = document.querySelector('.cities');
@@ -63,25 +75,19 @@ function addCity(){
 
 }
 
-function saveNewCity(){
+async function saveNewCity(){
     const cityDiv = document.querySelector('#new_city_div');
+    const name = cityDiv.querySelector('#new_city_name').value;
     highestId++;
-    
-    // =====
-    const title = noteDiv.querySelector('#new_note_title').value;
-    const content = noteDiv.querySelector('#new_note_content').value;
-    const color = noteDiv.querySelector('#new_note_color').value;
-    let pin = false;
-    if(noteDiv.querySelector('#new_note_pin').checked == true){
-        pin = true;
-    }
-    const data = noteDiv.dataset.date;
+    const data = await cityApi('http://geodb-free-service.wirefreethought.com/v1/geo/cities?limit=5&offset=0&namePrefix='+name);
+    const d1 = data[Object.keys(data)[0]];
+    const singleCity = d1[Object.keys(d1)[0]];
 
-    const note = new Note(highestId, title, content, color, pin, data);
-    // =====
+    const city = new City(highestId, name, singleCity.latitude, singleCity.longitude);
+
     const JSONcity = JSON.stringify(city);
     localStorage.setItem(city.id, JSONcity);
-    getCities();
+    //getCities();
     cityDiv.remove();
     
 }

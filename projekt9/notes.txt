@@ -5,9 +5,9 @@
     usuneicie niepotrzebnego
 2 - miasta
     +obiekt posiada id, nazwe, koordy X, koordy Y
-    użytkownik podaje nazwę miasta (musza byc polskie znaki)
-    z api branie koordynatów dla miasta
-    zapisywanie miast do local localStorage
+    +użytkownik podaje nazwę miasta (musza byc polskie znaki)
+    +z api branie koordynatów dla miasta
+    +zapisywanie miast do local localStorage
     dodawanie/usuwanie do 10 miast
 3 - pogoda
     temperatura, wilgotność, grafika
