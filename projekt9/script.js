@@ -23,14 +23,12 @@ const createButton = document.querySelector('#new_city');
 const singleCityBox = document.querySelector('.single_city_box');
 const cityList = document.querySelector('.cities');
 let highestId = 0;
-//getCities();
+getCities();
 window.addEventListener('DOMContentLoaded', (event) => {
 
     createButton.addEventListener('click', addCity);
 
 });
-
-
 
 class City{
     constructor(id, name, coordX, coordY){
@@ -87,7 +85,7 @@ async function saveNewCity(){
 
     const JSONcity = JSON.stringify(city);
     localStorage.setItem(city.id, JSONcity);
-    //getCities();
+    getCities();
     cityDiv.remove();
     
 }
@@ -200,38 +198,14 @@ function showCity(){
     
 }
 
-function saveEditedCity(){
-
-    const cityDiv = document.querySelector('#new_city_div');
-    
-    // =====
-    const id = noteDiv.querySelector('#new_note_title').dataset.id;
-    const title = noteDiv.querySelector('#new_note_title').value;
-    const content = noteDiv.querySelector('#new_note_content').value;
-    const color = noteDiv.querySelector('#new_note_color').value;
-    let pin = false;
-    if(noteDiv.querySelector('#new_note_pin').checked == true){
-        pin = true;
-    }
-    const data = noteDiv.dataset.date;
-
-    const note = new Note(id, title, content, color, pin, data);
-    // ====
-    const JSONcity = JSON.stringify(city);
-    localStorage.setItem(city.id, JSONcity);
-    getCities();
-    cityDiv.remove();
-}
-
 
 
 
 
 function getCities(){
     let cities = [];
-    let unpinnedCities = [];
     
-    var values = [],
+    let values = [],
         keys = Object.keys(localStorage),
         i = keys.length;
 
@@ -246,40 +220,24 @@ function getCities(){
     highestId = cities.at(-1).id;
     cityList.innerHTML = '';
     cities.forEach(function (element){
-        if(element.pin){
-            listCity(element);
-        }else{
-            unpinnedCities.push(element);
-        }
+        listCity(element);
     });
-    if( unpinnedCities.length > 0){
-        unpinnedCities.forEach(function(element){
-            listCity(element);
-        });
-    }
 
     const listedCities = document.querySelectorAll('.listed_city');
     
-    listedCities.forEach(function(element){
-        element.addEventListener('click', editCity);
-    });
 }
 
 function listCity(city){
     const newListedCity = document.createElement('div');
-    // =====
-    newListedNote.id = 'note'+note.id;
-    newListedNote.classList.add('listedNote');
-    newListedNote.dataset.title = note.title;
-    newListedNote.dataset.content = note.content;
-    newListedNote.dataset.color = note.color;
-    newListedNote.dataset.pin = note.pin;
-    newListedNote.dataset.data = note.data;
+    newListedCity.id = 'city'+city.id;
+    newListedCity.classList.add('listed_city');
+    newListedCity.dataset.name = city.name;
+    newListedCity.dataset.coordX = city.coordX;
+    newListedCity.dataset.coordY = city.coordY;
 
-    const title = document.createElement('h2');
-    title.innerHTML = note.title;
-    newListedNote.appendChild(title);
-    // =====
+    const name = document.createElement('h2');
+    name.innerHTML = city.name;
+    newListedCity.appendChild(name);
     cityList.appendChild(newListedCity);
 }
 

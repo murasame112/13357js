@@ -129,7 +129,7 @@ function getNotes(){
     let notes = [];
     let unpinnedNotes = [];
     
-    var values = [],
+    let values = [],
         keys = Object.keys(localStorage),
         i = keys.length;
 
