@@ -77,7 +77,7 @@ async function saveNewCity(){
     const cityDiv = document.querySelector('#new_city_div');
     const name = cityDiv.querySelector('#new_city_name').value;
     highestId++;
-    const data = await cityApi('http://geodb-free-service.wirefreethought.com/v1/geo/cities?limit=5&offset=0&namePrefix='+name);
+    const data = await cityApi('http://geodb-free-service.wirefreethought.com/v1/geo/cities?limit=5&offset=0&namePrefix='+name+'&languageCode=en');
     const d1 = data[Object.keys(data)[0]];
     const singleCity = d1[Object.keys(d1)[0]];
 
@@ -99,7 +99,7 @@ function showCity(){
     newCityDiv.id = 'new_city_div';
 
     // =====
-    const subTitleDiv = document.createElement('div');
+    /*const subTitleDiv = document.createElement('div');
     subTitleDiv.id = 'sub_title_div';
     const title = document.createElement('input');
     title.type = 'text';
@@ -128,7 +128,7 @@ function showCity(){
     const color = document.createElement('input');
     color.type = 'text';
     color.id = 'new_note_color';
-    color.placeholder = '#000000';
+    color.placeholder = '#000000';*/
 
     /// =====
 
@@ -224,6 +224,9 @@ function getCities(){
     });
 
     const listedCities = document.querySelectorAll('.listed_city');
+    listedCities.forEach(function(element){
+        element.addEventListener('click', showCity);
+    });
     
 }
 
