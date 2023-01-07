@@ -40,10 +40,15 @@ class City{
 }
 
 function clearNewCity(){
-    const oldCity = document.querySelector('#new_city_div');
+    let oldCity = document.querySelector('#new_city_div');
     if(oldCity != null){
         oldCity.remove();
     }
+    oldCity = document.querySelector('#city_div');
+    if(oldCity != null){
+        oldCity.remove();
+    }
+
 }
 
 function addCity(){
@@ -74,6 +79,13 @@ function addCity(){
 }
 
 async function saveNewCity(){
+
+    if(localStorage.length >= 10){
+        alert("cannot save more than 10 cities");
+        return false;
+    }
+    
+
     const cityDiv = document.querySelector('#new_city_div');
     const name = cityDiv.querySelector('#new_city_name').value;
     highestId++;
@@ -95,106 +107,56 @@ function showCity(){
     let cityId = this.id.slice(4);
     cityId = parseInt(cityId);
     clearNewCity();
-    const newCityDiv = document.createElement('div');
-    newCityDiv.id = 'new_city_div';
+    const cityDiv = document.createElement('div');
+    cityDiv.id = 'city_div';
 
-    // =====
-    /*const subTitleDiv = document.createElement('div');
-    subTitleDiv.id = 'sub_title_div';
-    const title = document.createElement('input');
-    title.type = 'text';
-    title.id = 'new_note_title';
-    title.placeholder = 'Title';
+    // wystwietla okienko z miastem
+    // przycisk usun
+    // pobiera z api i wyswietla pogode
 
-    const pinDiv = document.createElement('div');
-    pinDiv.id = 'pin_div';
-    const pinLabel = document.createElement('label');
-    pinLabel.innerHTML = 'pin';
-    const pin = document.createElement('input');
-    pin.type = 'checkbox';
-    pin.id = 'new_note_pin';
+    const nameDiv = document.createElement('div');
+    nameDiv.id = 'name_div';
+    const name = document.createElement('p');
+    name.id = 'city_name';
 
-    const content = document.createElement('textarea');
-    content.id = 'new_note_content';
-    content.placeholder = 'Content';
+    const statsDiv = document.createElement('div');
+    statsDiv.id = 'stats_div';
+    const temperature = document.createElement('p');
+    temperature.id = 'city_temperature';
+    const humidity = document.createElement('p');
+    humidity.id = 'city_humidity';
+
+    const pictureDiv = document.createElement('div');
+    pictureDiv.id = 'picture_div';
+    const picture = document.createElement('img');
+    picture.id = 'city_picture';
 
     const additionalsDiv = document.createElement('div');
     additionalsDiv.id = 'additionals_div';
 
-    const colorDiv = document.createElement('div');
-    colorDiv.id = 'color_div';
-    const colorLabel = document.createElement('label');
-    colorLabel.innerHTML = 'color (hex):';
-    const color = document.createElement('input');
-    color.type = 'text';
-    color.id = 'new_note_color';
-    color.placeholder = '#000000';*/
-
-    /// =====
-
-    const saveButton = document.createElement('button');
-    saveButton.id = 'new_city_save';
-    saveButton.addEventListener('click', saveNewCity);
-    saveButton.innerHTML = "Save";
-
-    // =====
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    let mm = today.getMonth() + 1; // Months start at 0!
-    let dd = today.getDate();
-
-    if (dd < 10) dd = '0' + dd;
-    if (mm < 10) mm = '0' + mm;
-
-    const formattedToday = dd + '/' + mm + '/' + yyyy;
-
-    newNoteDiv.dataset.date = formattedToday;
-
-
-    // appending new note (front)
-
-    colorDiv.appendChild(colorLabel);
-    colorDiv.appendChild(color);
-    additionalsDiv.appendChild(colorDiv);
-    additionalsDiv.appendChild(saveButton);
-    pinDiv.appendChild(pinLabel);
-    pinDiv.appendChild(pin);
-    subTitleDiv.appendChild(title);
-    subTitleDiv.appendChild(pinDiv);
-    newNoteDiv.appendChild(subTitleDiv);
-    newNoteDiv.appendChild(content);
-    newNoteDiv.appendChild(additionalsDiv);
-    singleNoteBox.appendChild(newNoteDiv);
-    // =====
-
-    // tu edit stary
-    const editedCity = document.querySelector('#new_city_div');
-    // =====
-    editedNote.querySelector('#new_note_title').value = this.dataset.title;
-    editedNote.querySelector('#new_note_content').value = this.dataset.content;
-    editedNote.querySelector('#new_note_color').value = this.dataset.color;
-    editedNote.querySelector('#new_note_title').dataset.id = noteId;
-    if(this.dataset.pin == true || this.dataset.pin == 'true'){
-        editedNote.querySelector('#new_note_pin').checked = true;
-    }
-    // =====
-    //const saveButton = document.querySelector('#new_city_save');
-    const additionals_div = document.querySelector('#additionals_div');
-
-    saveButton.remove();
-
     const deleteButton = document.createElement('button');
-    deleteButton.id = 'new_city_delete';
+    deleteButton.id = 'city_delete';
     deleteButton.addEventListener('click', deleteCity);
     deleteButton.innerHTML = 'Delete';
 
-    const editButton = document.createElement('button');
-    editButton.id = 'new_city_edit';
-    editButton.addEventListener('click', saveEditedCity);
-    editButton.innerHTML = 'Save';
+    // picture url
 
-    additionals_div.appendChild(deleteButton);
-    additionals_div.appendChild(editButton);
+
+    // appending city (front)
+
+    additionalsDiv.appendChild(deleteButton);
+    pictureDiv.appendChild(picture);
+    statsDiv.appendChild(temperature);
+    statsDiv.appendChild(humidity);
+    nameDiv.appendChild(name);    
+    cityDiv.appendChild(nameDiv);
+    cityDiv.appendChild(statsDiv);
+    cityDiv.appendChild(pictureDiv);
+    cityDiv.appendChild(additionalsDiv);
+    singleCityBox.appendChild(cityDiv);
+
+  
+    // tu pobranie i przypisanie wartości
     
 }
 
@@ -203,6 +165,9 @@ function showCity(){
 
 
 function getCities(){
+    if(localStorage.length == 0){
+        return false;
+    }
     let cities = [];
     
     let values = [],

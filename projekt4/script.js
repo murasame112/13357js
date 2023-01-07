@@ -126,6 +126,9 @@ function saveNewNote(){
 
 
 function getNotes(){
+    if(localStorage.length == 0){
+        return false;
+    }
     let notes = [];
     let unpinnedNotes = [];
     

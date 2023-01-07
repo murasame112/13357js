@@ -8,7 +8,10 @@
     +użytkownik podaje nazwę miasta (musza byc polskie znaki)
     +z api branie koordynatów dla miasta
     +zapisywanie miast do local localStorage
-    dodawanie/usuwanie do 10 miast (po kliknieciu na miasto wyswietlamy co sie dzieje (showCity) + ponizej przycisk "delete" (deleteCity))
+    +dodawanie/usuwanie do 10 miast (jesli jest 10, nie mozna dodac nowego)
+    css dla wyswietlania miasta (tam ogarnac roznice miedzy "new_city" i "city" w klasach i id)
+    pobieranie wartosci dla miasta
+    przycisk delete   
 3 - pogoda
     temperatura, wilgotność, grafika
     pobieranie pogody co odświeżenie
