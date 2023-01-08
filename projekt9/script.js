@@ -130,6 +130,7 @@ async function showCity(){
     pictureDiv.id = 'picture_div';
     const picture = document.createElement('img');
     picture.id = 'city_picture';
+    
 
     const additionalsDiv = document.createElement('div');
     additionalsDiv.id = 'additionals_div';
@@ -139,7 +140,7 @@ async function showCity(){
     deleteButton.addEventListener('click', deleteCity);
     deleteButton.innerHTML = 'Delete';
 
-    // picture url
+
     const lat = roundNumTo2(item.coordX);
     const lon = roundNumTo2(item.coordY);
 
@@ -148,6 +149,9 @@ async function showCity(){
     const celsiusTemp = data.main.temp -273.15;
     temperature.innerHTML = 'Temperature (C): ' + roundNumTo2(celsiusTemp);
     humidity.innerHTML = 'Air humidity: ' + data.main.humidity + '%';
+
+    const icon = Object.values(data.weather)[0].icon;
+    picture.src = 'http://openweathermap.org/img/wn/'+icon+'@2x.png';
     // appending city (front)
 
     additionalsDiv.appendChild(deleteButton);

@@ -64,12 +64,18 @@
 #stats_div{
     width:40%;
     height:185px;
+    
 }
 
 #picture_div{
     width:60%;
     height:185px;
+    display:flex;
+    justify-content: center;
+    background-color:aquamarine;
+    
 }
+
 
 #additionals_div{
     width:100%;

@@ -14,8 +14,7 @@
     +przycisk delete   
 3 - pogoda
     +temperatura i wilgotność
-    grafika
-    pobieranie pogody co odświeżenie (funkcja refresh?)
+    +grafika
 
 =====
 4 - dalej pogoda
