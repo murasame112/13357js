@@ -3,7 +3,7 @@
 async function weatherApi(url){
     const response = await fetch(url);
     let data = await response.json();
-    console.log(data);
+    return data;
     }
 
 //weatherApi('https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=b32d84d770907c0b3e954927aed7ea88');
@@ -11,7 +11,6 @@ async function weatherApi(url){
 async function cityApi(url){
     const response = await fetch(url);
     let data = await response.json();
-    //console.log(data);
     return data;
     }
 
@@ -103,21 +102,22 @@ async function saveNewCity(){
 }
 
 
-function showCity(){
+async function showCity(){
     let cityId = this.id.slice(4);
     cityId = parseInt(cityId);
+    let item = localStorage.getItem(cityId);
+    item = JSON.parse(item);
+
     clearNewCity();
     const cityDiv = document.createElement('div');
     cityDiv.id = 'city_div';
-
-    // wystwietla okienko z miastem
-    // przycisk usun
-    // pobiera z api i wyswietla pogode
+    cityDiv.dataset.id = cityId;
 
     const nameDiv = document.createElement('div');
     nameDiv.id = 'name_div';
-    const name = document.createElement('p');
+    const name = document.createElement('h2');
     name.id = 'city_name';
+    name.innerHTML = item.name;
 
     const statsDiv = document.createElement('div');
     statsDiv.id = 'stats_div';
@@ -140,8 +140,14 @@ function showCity(){
     deleteButton.innerHTML = 'Delete';
 
     // picture url
+    const lat = roundNumTo2(item.coordX);
+    const lon = roundNumTo2(item.coordY);
 
+    const data = await weatherApi('https://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&appid=b32d84d770907c0b3e954927aed7ea88');
 
+    const celsiusTemp = data.main.temp -273.15;
+    temperature.innerHTML = 'Temperature (C): ' + roundNumTo2(celsiusTemp);
+    humidity.innerHTML = 'Air humidity: ' + data.main.humidity + '%';
     // appending city (front)
 
     additionalsDiv.appendChild(deleteButton);
@@ -156,10 +162,16 @@ function showCity(){
     singleCityBox.appendChild(cityDiv);
 
   
-    // tu pobranie i przypisanie wartości
+    
     
 }
 
+function roundNumTo2(num){
+    num = Number(num);
+    num = num.toFixed(2);
+    num = Number(num);
+    return num;
+}
 
 
 
@@ -214,10 +226,8 @@ function listCity(city){
 
 
 function deleteCity(){
-    const cityDiv = document.querySelector('#new_city_div');
-    
-    const id = cityDiv.querySelector('#new_city_title').dataset.id;
-    localStorage.removeItem(id);
+    const cityId = document.querySelector('#city_div').dataset.id;
+    localStorage.removeItem(cityId);
     clearNewCity();
     getCities();
 }

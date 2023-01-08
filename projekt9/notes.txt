@@ -9,12 +9,13 @@
     +z api branie koordynatów dla miasta
     +zapisywanie miast do local localStorage
     +dodawanie/usuwanie do 10 miast (jesli jest 10, nie mozna dodac nowego)
-    css dla wyswietlania miasta (tam ogarnac roznice miedzy "new_city" i "city" w klasach i id)
-    pobieranie wartosci dla miasta
-    przycisk delete   
+    +css dla wyswietlania miasta (tam ogarnac roznice miedzy "new_city" i "city" w klasach i id)
+    +pobieranie wartosci dla miasta
+    +przycisk delete   
 3 - pogoda
-    temperatura, wilgotność, grafika
-    pobieranie pogody co odświeżenie
+    +temperatura i wilgotność
+    grafika
+    pobieranie pogody co odświeżenie (funkcja refresh?)
 
 =====
 4 - dalej pogoda
