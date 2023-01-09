@@ -1,88 +1,124 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_usage
 // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc
 
-// todo1 - kulki nie moga sie respic na innych kulkach
-// todo2 - guzik "draw" jest wyszarzony dopóki nie ma wartości X wpisanej, a potem jesli ktos ja usunie lub go zwyczajnie kliknie
-// todo3 - przeniesc generowanie kulek do init() z draw()
-
 const canvas = document.querySelector('#canva');
 const ctx = canvas.getContext('2d');
 
+// ===== potencjalna konfiguracja tych zmiennych
+const maxWidth = 900;
+const maxHeight = maxWidth;
+const minWidth = 0;
+const minHeight = minWidth;
+// =====
+
+let xValue=0;
+let animation;
+let balls =[];
+
 const drawButton = document.querySelector('#draw');
 const initButton = document.querySelector('#init');
-const xValue = document.querySelector('#xValue');
+const xValueInput = document.querySelector('#xValue');
+xValueInput.addEventListener('change', setDraw);
+drawButton.addEventListener('click', executeDraw);
+initButton.disabled = true; 
+drawButton.disabled = true; 
 
-xValue.addEventListener('change', setDraw);
-
+// funkcja ustawia przycisk 'set' na mozliwy do klikniecia, gdy jest jakas wartosc w inpucie
 function setDraw(){
-    if(xValue.value.length != 0){
-        // todo2 od-szarzanie buttona
+    if(xValueInput.value.length != 0){
+        initButton.disabled = false;
         initButton.addEventListener('click', init);
     }else{
-        // todo2 wyszarzanie buttona
+        initButton.disabled = true; 
     }
 }
 
-drawButton.addEventListener('click', ()=>{setInterval(draw,1000)});
-const radius = 10;
-const maxWidth = 480;
-const minWidth = 20;
+class Ball {
 
+    constructor(xPosition, yPosition, radius,speed){
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
+        this.radius = radius;
+        this.speed = speed;
 
-function init(){
-    
+        this.moveX = 1 * this.speed;
+        this.moveY = 1 * this.speed;
 
-    
-}
+    }
 
-
-
-function draw() {
-    ctx.globalCompositeOperation = 'destination-over';
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    //for(let i = 0; i < xValue.value; i++){
-        let width = Math.random() * (maxWidth - minWidth) + minWidth;
-        let height = Math.random() * (maxWidth - minWidth) + minWidth;
+    createBall(){
         if (canvas.getContext) {
             ctx.beginPath();
-            ctx.arc(width, height, radius, 0, 2 * Math.PI);
+            ctx.arc(this.xPosition, this.yPosition, this.radius, 0, 2 * Math.PI);
             ctx.fillStyle = '#49d169';
             ctx.fill();
             ctx.stroke();
-            ctx.save();
+            ctx.closePath();
         }
-    //}
-    
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.restore();
-    ctx.stroke();
-    
-    
-    //ctx.translate(5, 5);
-    
+    }
 
-    //ctx.restore();
-  
-    // // Earth
-    // const time = new Date();
-    // ctx.rotate(((2 * Math.PI) / 60) * time.getSeconds() + ((2 * Math.PI) / 60000) * time.getMilliseconds());
-    // ctx.translate(105, 0);
-    // ctx.fillRect(0, -12, 40, 24); // Shadow
-  
-    // // Moon
-    // ctx.save();
-    // ctx.rotate(((2 * Math.PI) / 6) * time.getSeconds() + ((2 * Math.PI) / 6000) * time.getMilliseconds());
-    // ctx.translate(0, 28.5);
-    // ctx.restore();
-  
-    // ctx.restore();
-  
-    // ctx.beginPath();
-    // ctx.arc(150, 150, 105, 0, Math.PI * 2, false); // Earth orbit
-    // ctx.stroke();
-  
-    //window.requestAnimationFrame(draw);
-    
+    draw()
+    {
+        this.createBall();
+        
+        if((this.xPosition + this.radius) > maxWidth)
+        {
+        this.moveX = -this.moveX;
+        }
 
-    // todo2 wyszarzanie buttona
+        if((this.xPosition - this.radius) < minWidth)
+        {
+        this.moveX = -this.moveX;
+        }
+
+        if((this.yPosition + this.radius) > maxHeight)
+        {
+            this.moveY = -this.moveY;
+        }
+
+        if((this.yPosition - this.radius) < minHeight)
+        {
+        this.moveY = -this.moveY;
+        }
+
+        this.xPosition += this.moveX;
+        this.yPosition += this.moveY;
+
+    }
 }
+
+
+function init(){
+    balls =[];
+    xValue = xValueInput.value;
+    console.log(xValue);
+    xValueInput.value = null;
+    initButton.disabled = true; 
+
+    for(let i = 0; i < xValue; i++)
+    {
+    
+        const radius = Math.floor(Math.random() * 20) + 10;
+        const speed = -radius+30;
+        const xPosition = Math.floor(Math.random() * (maxWidth - radius-1)) + radius+1;
+        const yPosition = Math.floor(Math.random() * (maxHeight - radius-1)) + radius+1;
+
+        const ball = new Ball(xPosition, yPosition, radius, speed);
+        balls.push(ball);
+        drawButton.disabled = false; 
+        cancelAnimationFrame(animation);
+        ctx.clearRect(0, 0, maxWidth, maxHeight);
+    }
+}
+
+function executeDraw(){
+    drawButton.disabled = true; 
+    animation = requestAnimationFrame(executeDraw);
+    ctx.clearRect(0, 0, maxWidth, maxHeight);
+
+    balls.forEach(element =>{
+        element.draw();
+    })
+}
+
+

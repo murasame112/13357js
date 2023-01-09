@@ -1,9 +1,8 @@
-canvas {
-    border: 1px solid black;
+.canvasDiv{
+    background-color: #49d169;
+    left:100px;
+    top:50px;
+    position:absolute;
+    border:1px solid black;
 }
 
-.canvasDiv{
-    left:10%;
-    top:10%;
-    position:absolute;
-}
